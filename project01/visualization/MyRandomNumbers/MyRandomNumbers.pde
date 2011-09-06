@@ -9,17 +9,116 @@ SimpleSpreadsheetManager sm;
 String sUrl = "t6mq_WLV5c5uj6mUNSryBIA";
 String googleUser = GUSER;
 String googlePass = GPASS;
+
+//font object
+PFont label; 
   
 void setup() {
     //This code happens once, right when our sketch is launched
-    size(500,500);
+    size(800, 800);
     background(0);
     smooth();
-    print(test);
+    
+    
+    //Create the font object to make text with 
+    label = createFont("Helvetica", 24); 
+    
+    //Ask for list of number
+    int[] numbers = getNumbers(); 
+   
+   colorGrid(numbers, 50, 50, 70);
+   
+   
+   //barGraph(numbers, 100); 
+   
+    /*for(int i=1; i<7; i++){
+      int[] randoms = getRandomNumbers(225);
+      barGraph(randoms, 100 + (i*130)); 
+    }*/ 
+    
+    
+    /*fill(255, 40);
+    //noStroke();
+    //our linke of google numbers
+    //for (int i=0; i < numbers.length; i++){
+     // ellipse(numbers[i] * 8, width/2, 8,8);
+     }
+    //a line of random number 
+    for (int i=0; i<numbers.length; i++){
+      ellipse(ceil(random(0,99))*8, height/2+20, 8,8);
+    }*/ 
 
+}
+
+void colorGrid (int[] nums, float x, float y, float s){
+  //Make a list of number counts 
+  int [] counts = new int [100]; 
+  // Fill it with zeros 
+  for (int i=0; i<100; i++){
+    counts[i] = 0; 
+  }
+  //Tally counts
+  for (int i=0; i<nums.length; i++){
+    counts[nums[i]] ++; 
+  }
+  
+  //Move the drawing coordinates to the x,y position specified  in the parametes
+  pushMatrix();
+  translate(x,y); 
+  //Draw the grid 
+  for (int i=0; i<counts.length; i++){
+    colorMode(HSB);
+    fill(counts[i]*30, 255, 255, counts[i] * 30); 
+    textAlign(CENTER);
+    textFont(label);
+    textSize(s/2);
+    text(i, (i%10) *s, floor(i/10)*s);
+    //rect((i%10)*s, floor(i/10)*s, s,s ); 
+    
+  }
+      popMatrix();
+      
+  
+}
+void barGraph(int[] nums){
+    //Make a list of number counts 
+    int[] counts = new int[100];
+    // fill in zeros 
+    for (int i=1; i<100; i++){
+      counts[i] = 0; 
+    }
+    // Tally the counts 
+    for(int i=0; i<nums.length; i++){
+       counts[nums[i]] ++; 
+    }
+}
+
+void barGraph(int[] nums, float y){
+    //Makes a list of numbe counts 
+    int[] counts = new int[100]; 
+    //fill it with zeros 
+    for (int i=1; i<100; i++){
+      counts[i] = 0;     
+    }
+    // tally the ocunts 
+    for(int i=0; i<nums.length; i++){
+    counts[nums[i]] ++; 
+    }
+    
+    for (int i=0; i<counts.length; i++){
+     rect(i*8, y, 8, -counts[i]*10);  
+    }
+    
+    for (int i=0; i<counts.length; i++){
+      colorMode(HSB);
+     //fill(255, counts[i]*30, 0);
+     fill (counts[i] * 30, 255 ,255) ;
+     rect(i*8, y,8, -counts[i] * 10);
+    } 
 }
 
 void draw() {
   //This code happens once every frame.
+  
 }
 
