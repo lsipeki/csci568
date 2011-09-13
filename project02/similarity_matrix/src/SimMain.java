@@ -13,5 +13,6 @@ public class SimMain {
 		System.out.println(alg.smc(a, b));
 		System.out.println(alg.Jaccard(a, b));
 		System.out.println(alg.Pearson(a, c)); 
+		System.out.println(alg.Cosine(a, b)); 
 	}
 }

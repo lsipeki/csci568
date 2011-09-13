@@ -62,9 +62,10 @@ public class algorithms {
 	}
 	public double Cosine(int[] a, int[] b){
 		double result =0; 
-		
+		ArrayList<Integer> both = both_have(a, b); 
+		double dot = dotproduct(a, b, both); 
+		result = dot / (mag(a, both) * mag(b, both)); 
 		return result;
-		
 	}
 	
 	public ArrayList<Integer> both_have(int a[], int[] b){
@@ -99,5 +100,21 @@ public class algorithms {
 		}
 	
 		return sum; 
+	}
+	public double dotproduct(int[] a, int[] b, ArrayList<Integer> x){
+		double result = 0;
+		for(int i=0; i<x.size(); i++){
+			result = result + (a[x.get(i)] * b[x.get(i)]);
+		}
+		
+		return result; 
+	}
+	public double mag(int[] a, ArrayList<Integer> x){
+		double result = 0; 
+		for(int i=0; i<x.size(); i++){
+			result = result + (a[x.get(i)] * a[x.get(i)]);
+		}
+		result = Math.sqrt(result);
+		return result; 
 	}
 }
