@@ -15,19 +15,35 @@ public class algorithms {
 		
 	}
 	public double smc(int[] a, int[] b){
-		double result =0; 
-		
-		return result;
+		ArrayList<Integer> both = both_have(a, b); 
+		int matching_attributes = 0 ; 
+		for( int i =0; i<both.size(); i++){
+			if (a[both.get(i)] == b[both.get(i)]){
+				matching_attributes ++;
+			}
+		}
+		double attributes = both.size(); 
+		return matching_attributes/attributes;
 	}
 	
 	public double Jaccard(int[] a, int[] b){
-		double result =0; 
-		
-		return result;
-		
+		ArrayList<Integer> both = both_have(a, b); 
+		int matching_attributes = 0 ; 
+		for( int i =0; i<both.size(); i++){
+			if (a[both.get(i)] == b[both.get(i)] && a[both.get(i)] > 0 ){
+				matching_attributes ++;
+			}
+		}
+		double attributes = 0;
+		for( int i=0; i<both.size(); i++){
+			if(a[both.get(i)] != 0)
+				attributes++;
+			else if(b[both.get(i)] != 0)
+				attributes++; 
+		}
+		return matching_attributes/attributes;	
 	}
 	public double Pearson(int[] a, int[] b){
-		double result =0; 
 		ArrayList<Integer> both = both_have(a, b); 
 		double suma = sum(a, both);
 		double sumb = sum(b, both); 
