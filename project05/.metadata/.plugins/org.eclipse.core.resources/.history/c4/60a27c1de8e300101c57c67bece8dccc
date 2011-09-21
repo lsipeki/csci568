@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+
+
+public class kmain {
+	public static void main(String[] args) {
+		Hashtable<Integer, String[]> iris  = fileread("iris.csv");
+		
+	}
+
+	public static Hashtable<Integer, String[]> fileread(String filename){
+		Hashtable<Integer, String[]> iris  = new Hashtable<Integer, String[]>();
+		
+		String fileName=filename;   //spatial length, spatial width, petal length , petal width 
+		try {
+			BufferedReader br = new BufferedReader( new FileReader(fileName));
+			String strLine = null;
+			StringTokenizer st = null;
+			int lineNumber = 0, tokenNumber = 0;
+			
+			while( (fileName = br.readLine()) != null)
+			{
+				
+				System.out.println(br.readLine());
+				String parts[] = br.readLine().split(",");
+				iris.put(lineNumber, parts);
+				lineNumber++;
+ 
+			}
+		} 
+ 
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return iris;
+	}
+}
