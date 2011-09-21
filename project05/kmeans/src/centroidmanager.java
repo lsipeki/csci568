@@ -20,19 +20,27 @@ public class centroidmanager {
 		centnum = centNum; 
 		data = iris;
 		for(int i = 0; i<centnum; i++){
-			centData.add(new ArrayList<String[]>());   // creates datasets for each centroid 
+			centData.add(new ArrayList<String[]>());   // creates data sets for each centroid 
 		}
 		initial_placement();
-		while(comp() > 1) { 
-			lastpos = centpos; 
+		while(comp() > .002) {
+			lastpos.clear(); 
+			for(int i=0; i<centpos.size(); i++){
+				double[] value = new double[centpos.get(i).length]; 
+				for(int k=0; k < centpos.get(i).length; k++){
+					value[k] = centpos.get(i)[k];
+				}
+				lastpos.add(value);
+			}
 			findclose();
 			newCentLoc(); 
+			System.out.println("Itterate");
 		}
 	} 
 	
 	private void initial_placement(){
 		Random rand = new Random(); 
-		findmax(); 
+		//findmax(); 
 		/*for (int i=0; i<centnum; i++){
 			double[] initial = {(double)rand.nextInt(max[0]), (double)rand.nextInt(max[1]),(double)rand.nextInt(max[2]),(double)rand.nextInt(max[3])};
 			centpos.add(initial);

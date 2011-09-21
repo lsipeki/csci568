@@ -31,7 +31,7 @@ public class kmain {
 			while( (strLine = br.readLine()) != null)
 			{
 				
-				System.out.println(strLine);
+	//			System.out.println(strLine);
 				String parts[] = strLine.split(",");
 				iris.put(lineNumber, parts);
 				lineNumber++;
