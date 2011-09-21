@@ -12,10 +12,6 @@ public class kmain {
 		Hashtable<Integer, String[]> iris  = fileread("iris.csv");
 		centroidmanager kmeans = new centroidmanager(iris, 3);
 		ArrayList<ArrayList<String[]>> results = kmeans.getResults(); 
-		System.out.println("Clusters: " + results.size());
-		for(int i =0; i < results.size(); i++){
-			System.out.println("Nubmer in Cluster " + i + " is : " + results.get(i).size());
-		}
 	}
 
 	
@@ -30,11 +26,11 @@ public class kmain {
 			
 			while( (strLine = br.readLine()) != null)
 			{
-				
-				System.out.println(strLine);
-				String parts[] = strLine.split(",");
-				iris.put(lineNumber, parts);
 				lineNumber++;
+				System.out.println(strLine);
+				String parts[] = br.readLine().split(",");
+				iris.put(lineNumber, parts);
+				
  
 			}
 		} 
