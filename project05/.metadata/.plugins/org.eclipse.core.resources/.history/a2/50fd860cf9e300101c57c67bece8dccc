@@ -11,7 +11,7 @@ public class centroidmanager {
 	private Hashtable<Integer, String[]> data; 
 	private int[] max = new int[4];
 	private ArrayList<ArrayList<String[]>> centData = new ArrayList<ArrayList<String[]>>();   // each object taht belongs to the centroid 
-	//private ArrayList<double[]> closeness = new ArrayList<double[]>();
+	private ArrayList<double[]> closeness = new ArrayList<double[]>();
 	private ArrayList<double[]> centpos = new ArrayList<double[]>();
 	
 	public centroidmanager(Hashtable<Integer, String[]> iris, int centNum){
@@ -57,39 +57,10 @@ public class centroidmanager {
 			for(int l=0; l < centNum; l++){
 				c[l]  = euclidean(items, centpos.get(l));	
 			}
-			centData.get(getshort(c)).add(data.get(i));   // puts the point to the value of the shortest euclidian distance to that centroid's arrray list in Cent Data
+			closeness.add(c);
 			
 		}
 		
-	}
-	public void newCentLoc(int centNum){
-		for(int i =0; i<centNum; i++){
-			int tot = 0; 
-			double[] sum = new double[4]; 
-			for(int k=0; k < centData.get(i).size(); k++){
-				sum[0] = sum[0] + Double.parseDouble(centData.get(i).get(k)[0]);
-				sum[1] = sum[1] + Double.parseDouble(centData.get(i).get(k)[1]);
-				sum[2] = sum[2] + Double.parseDouble(centData.get(i).get(k)[2]);
-				sum[3] = sum[3] + Double.parseDouble(centData.get(i).get(k)[3]);
-				tot++;
-			}
-			centpos.get(i)[0] = sum[0] / tot; 
-			centpos.get(i)[1] = sum[1] / tot; 
-			centpos.get(i)[2] = sum[2] / tot; 
-			centpos.get(i)[3] = sum[3] / tot; 
-		}
-	}
-	
-	public int getshort(double[] nums){
-		double current = 100000;
-		int index = 0; 
-		for(int i=0; i< nums.length; i++){
-			if(current > nums[i]){
-				index = i; 
-				current = nums[i];
-			}
-		}
-		return index;
 	}
 	
 	public double euclidean(double[] a, double[] b){    // euclidean distnace 

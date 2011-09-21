@@ -71,12 +71,7 @@ public class centroidmanager {
 				sum[1] = sum[1] + Double.parseDouble(centData.get(i).get(k)[1]);
 				sum[2] = sum[2] + Double.parseDouble(centData.get(i).get(k)[2]);
 				sum[3] = sum[3] + Double.parseDouble(centData.get(i).get(k)[3]);
-				tot++;
 			}
-			centpos.get(i)[0] = sum[0] / tot; 
-			centpos.get(i)[1] = sum[1] / tot; 
-			centpos.get(i)[2] = sum[2] / tot; 
-			centpos.get(i)[3] = sum[3] / tot; 
 		}
 	}
 	

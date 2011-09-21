@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+
+public class centroidmanager {
+	private Hashtable<Integer, String[]> data; 
+	ArrayList<ArrayList<String[]>> centData = new ArrayList<ArrayList<String[]>>();
+	ArrayList<double[]> centpos = new ArrayList<double[]>();
+	
+	public centroidmanager(Hashtable<Integer, String[]> iris, int centNum){
+		data = iris;
+	}
+	
+}

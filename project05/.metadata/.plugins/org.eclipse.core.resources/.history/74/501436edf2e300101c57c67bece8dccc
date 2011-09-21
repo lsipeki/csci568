@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
+
+
+public class centroidmanager {
+	private Hashtable<Integer, String[]> data; 
+	private int[] max = new int[4];
+	private ArrayList<ArrayList<String[]>> centData = new ArrayList<ArrayList<String[]>>();   // each object taht belongs to the centroid 
+	private ArrayList<double[]> closeness = new ArrayList<double[]>();
+	private ArrayList<double[]> centpos = new ArrayList<double[]>();
+	
+	public centroidmanager(Hashtable<Integer, String[]> iris, int centNum){
+		data = iris;
+		for(int i = 0; i<centNum; i++){
+			centData.add(new ArrayList<String[]>());   // creates datasets for each centroid 
+		}
+	} 
+	
+	public void initial_placement(int centNum){
+		Random rand = new Random(); 
+		findmax(); 
+		for (int i=0; i<centNum; i++){
+			double[] initial = {(double)rand.nextInt(max[0]), (double)rand.nextInt(max[1]),(double)rand.nextInt(max[2]),(double)rand.nextInt(max[3])};
+			centpos.add(initial);
+		}
+	}
+	
+	public void findmax(){
+		Set a = data.entrySet();
+		
+		Iterator i = a.iterator();
+		
+		while(i.hasNext()){
+			Map.Entry m =(Map.Entry)i.next();
+			
+			String[] items = (String[])m.getValue();
+			for(int x=0; x<4; x++){
+				int current = Integer.parseInt(items[x]);
+				if(max[x] < current)
+					max[x] = (int)current;
+
+			}
+		}
+		
+		
+	}
+	
+	
+}
