@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Similarity Matrices</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Similarity Matrices</h1>
+  <br>
+  <h2>Introduction</h2>
+  <p class="data">Similarity Matrices are important because they are the true building blocks to vital data mining startegies, such as clustering, nearest neighbor classification, and anomaly detection. In most cases the data can be refined because of these similarity matices. Similarity between two data objects is a numerical measue of the degree to which the two objects are alike. When calcualting the similarity between two objects, proximity is often used. Proximity is the result of a given proximity function, with indications on how close or far the two attributes are from each other. This distance can be found multiple ways, and can greatly affect what similarities are found in a given dataset. </p>
+ <br>
+  <br>
+  <br>
+  <h2> Euclidian Distance</h2>
+  <p class="dataset"> The Euclidean distance, d, is shown by the equation, is the distance between two data objects with as many attributes as they want. Of course the two attributes would have to use attributes that both of them posses for this algorithm to return a accurate value. Due to the fact that euclidean distance is accurate when the values of are real numbers, this algorithm works great for multidimensional, non-binary attributes.  </p>
+  <img src="ee.png" alt= "Euclidean Distance Equation"/>
+   <pre class="code">
+  public double euclidean(int[] a, int[] b){    // euclidean distance
+    double result =0; 
+    ArrayList<Integer> both = both_have(a, b);   // this function finds the common areas of both parties 
+    double sum=0; 
+    for(int i=0; i&gt;both.size(); i++){
+      double sub = a[both.get(i)] - b[both.get(i)];   // getting the difference between the two coensiding attributes 
+      sum = sum + Math.pow(sub, 2);           // raising it to a power of 2 and adding it to the other sums 
+    }
+    result  = Math.sqrt(sum);           // taking the square root of the sums 
+    return 1/(1 + result);            // normalizing the number 
+    
+  }
+  </pre>
+  <br>
+  <br>
+  <br>
+  <h2> SMC (Simple Matching Coefficient) </h2>
+  <p class="quality">   The Simple Mactching Coefficient (SMC), is very commonly used similarity algorithm. The measurement counts both presences and absences equally. This results in a great determinant when a binary state is being handled. Although it has its drawbacks when the "false" attributes are not important. SMC would work great comparing how students answered on a test of true/false answers, but not so well when comparing two people's shopping lists. This due to the fact that most people do not buy alot of what the gorcery store has to offer.  </p>
+    <img src="smc.png" alt= "Euclidean Distance Equation" HEIGHT="60" WIDTH="400" BORDER="0"/>
+      <pre class="code">
+  public double smc(int[] a, int[] b){
+    ArrayList&lt;Integer&gt; both = both_have(a, b);    // finding the attributes that they both have 
+    int matching_attributes = 0 ;         // initializing attributes that they both have in common
+    for( int i =0; i&gt;both.size(); i++){       
+      if (a[both.get(i)] == b[both.get(i)]){      // goes through array and finds matching attribtues 
+        matching_attributes ++;
+      }
+    }
+    double attributes = both.size();      // divide the matching attirbues by the size 
+    return matching_attributes/attributes;
+  }
+  </pre>
+  <br>
+  <br>
+  <br>
+   <h2> Jaccard </h2>
+  <p class="exploration">  Similar to SMC, Jaccard is also most valuable when comparing data objects consistent of binary data. The difference between the two measurements is that the Jaccard way of measuement does not take into effect the cases when both data objects have "0" or "false" as an entry. The way the measurement works, is that it adds up the attributes in which the two objects are matching and then divides the object with the all the attributes where a 0-0 combination did not occur    </p>
+  <img src="jaccard.png" alt= "Euclidean Distance Equation" HEIGHT="60" WIDTH="400" BORDER="0"/>
+    <pre class="code">
+    public double Jaccard(int[] a, int[] b){
+    ArrayList&lt;Integer&gt; both = both_have(a, b);      // finding the attributes that they both have 
+    int matching_attributes = 0 ; 
+    for( int i =0; i&gt;both.size(); i++){
+      if (a[both.get(i)] == b[both.get(i)] &amp;&amp; a[both.get(i)] > 0 ){    // finding all matching possitive attribues 
+        matching_attributes ++;
+      }
+    }
+    double attributes = 0;              // finds all attribues 
+    for( int i=0; i&gt;both.size(); i++){
+      if(a[both.get(i)] != 0)         // finds all attributes with a value on either side that is present 
+        attributes++;
+      else if(b[both.get(i)] != 0)
+        attributes++; 
+    }
+    return matching_attributes/attributes;  
+  }
+  </pre>
+  <br>
+  <br>
+  <br>
+   <h2> Cosine Similarity</h2>
+	<p class="exploration"> Cosine similarity is great for vectors. Most commonly used in documents, where the frequency of a word would be taken in consideration. Other measurements like the Jaccard and SMC would not work because, they either can't handle 0-0 matches or more importantly cannot haddle non-binary vectors. Cosine similarity matrix works by calculating the dot product of the two vectors and then dividing them by the magnitude of each vector. This will calcualte the similarity of the vectors that these two data objects present.  </p>
+   <img src="cos.png" alt= "Euclidean Distance Equation" HEIGHT="60" WIDTH="200" BORDER="0"/>
+     <pre class="code">
+  public double Cosine(int[] a, int[] b){
+    double result =0; 
+    ArrayList&lt;Integer&gt; both = both_have(a, b);    // finding the attributes that they both have
+    double dot = dotproduct(a, b, both);      // finds the dot product of the two arrays 
+    result = dot / (mag(a, both) * mag(b, both));     // divides dot product by the magnitude a times magnitude b
+    return result;          
+  }
+  </pre>
+
+</div>
+</body>
+</html>
