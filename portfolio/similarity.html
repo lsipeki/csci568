@@ -19,12 +19,12 @@
   <h1>Similarity Matrices</h1>
   <br>
   <h2>Introduction</h2>
-  <p class="data">Similarity Matrices are important because they are the true building blocks to vital data mining startegies, such as clustering, nearest neighbor classification, and anomaly detection. In most cases the data can be refined because of these similarity matices. Similarity between two data objects is a numerical measue of the degree to which the two objects are alike. When calcualting the similarity between two objects, proximity is often used. Proximity is the result of a given proximity function, with indications on how close or far the two attributes are from each other. This distance can be found multiple ways, and can greatly affect what similarities are found in a given dataset. </p>
+  <p class="data">Similarity Matrices are important because they are the true building blocks to vital data mining startegies, such as clustering, nearest neighbor classification, and anomaly detection. In most cases the data can be refined because of these similarity matices. A small distance indicating a high degree of similarity and a large distance indicating a low degree of similarity. When calcualting the similarity between two objects, proximity is often used. Proximity is the result of a given proximity function, with indications on how close or far the two attributes are from each other. This distance can be found multiple ways, and can greatly affect what similarities are found in a given dataset. </p>
  <br>
   <br>
   <br>
   <h2> Euclidian Distance</h2>
-  <p class="dataset"> The Euclidean distance, d, is shown by the equation, is the distance between two data objects with as many attributes as they want. Of course the two attributes would have to use attributes that both of them posses for this algorithm to return a accurate value. Due to the fact that euclidean distance is accurate when the values of are real numbers, this algorithm works great for multidimensional, non-binary attributes.  </p>
+  <p class="dataset"> The Euclidean distance, d, is shown by the equation, is the distance between two data objects with as many attributes as they want. Of course the two attributes would have to use attributes that both of them posses for this algorithm to return a accurate value. Due to the fact that euclidean distance is accurate when the values of are real numbers, this algorithm works great for multidimensional, non-binary attributes. Euclidean distance works by finding the distance between the individual attributes of the given data objects and then taking the square root of the squared sum of them. Using the basis of the pythagorean theorm, it can expand to many dimensions of data. </p>
   <img src="ee.png" alt= "Euclidean Distance Equation"/>
    <pre class="code">
   public double euclidean(int[] a, int[] b){    // euclidean distance
@@ -44,7 +44,7 @@
   <br>
   <br>
   <h2> SMC (Simple Matching Coefficient) </h2>
-  <p class="quality">   The Simple Mactching Coefficient (SMC), is very commonly used similarity algorithm. The measurement counts both presences and absences equally. This results in a great determinant when a binary state is being handled. Although it has its drawbacks when the "false" attributes are not important. SMC would work great comparing how students answered on a test of true/false answers, but not so well when comparing two people's shopping lists. This due to the fact that most people do not buy alot of what the gorcery store has to offer.  </p>
+  <p class="quality">   The Simple Mactching Coefficient (SMC), is very commonly used similarity algorithm. The measurement counts both presences and absences equally. This results in a great determinant when a binary state is being handled. Although it has its drawbacks when the "false" attributes are not important. SMC would work great comparing how students answered on a test of true/false answers, but not so well when comparing two people's shopping lists. This due to the fact that most people do not buy alot of what the gorcery store has to offer. </p>
     <img src="smc.png" alt= "Euclidean Distance Equation" HEIGHT="60" WIDTH="400" BORDER="0"/>
       <pre class="code">
   public double smc(int[] a, int[] b){
