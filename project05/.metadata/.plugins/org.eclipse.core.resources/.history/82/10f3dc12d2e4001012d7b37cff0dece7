@@ -36,7 +36,7 @@ public class centroidmanager {
 			}
 			findclose();
 			newCentLoc(); 
-			//System.out.println("Itterate");
+			System.out.println("Itterate");
 		}
 	} 
 	
@@ -103,7 +103,7 @@ public class centroidmanager {
 	}
 	
 	private int getmax(double[] nums){
-		double current = 0;
+		double current = 100000;
 		int index = 0; 
 		for(int i=0; i< nums.length; i++){
 			if(current < nums[i]){
@@ -126,22 +126,7 @@ public class centroidmanager {
 		return 1/(1 + result);						// normalizing the number 
 		
 	}
-	public double computeSSE(){
-		double SSE =0 ; 
-		ArrayList<Double> eucDist = new ArrayList<Double>(); 
-		for(int i=0; i< centData.size(); i++){
-			for(int k=0; k < centData.get(i).size(); k++){
-				double a[] = {Double.parseDouble(centData.get(i).get(k)[0]), Double.parseDouble(centData.get(i).get(k)[1]), Double.parseDouble(centData.get(i).get(k)[2]), Double.parseDouble(centData.get(i).get(k)[3])}; 
-				eucDist.add(euclidean(a, centpos.get(i))); 	
-			}
-			
-		}
-		for(int i=0; i < eucDist.size(); i++){
-			SSE = SSE + Math.pow(eucDist.get(i), 2);
-		}
-		
-		return SSE; 
-	}
+	
 	private double comp(){
 		double result =0;
 		for(int i=0; i < centpos.size(); i++){

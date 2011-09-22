@@ -15,8 +15,6 @@ public class centroidmanager {
 	//private ArrayList<double[]> closeness = new ArrayList<double[]>();
 	private ArrayList<double[]> centpos = new ArrayList<double[]>();
 	private ArrayList<double[]> lastpos = new ArrayList<double[]>(); 
-	private double SSE = 0; 
-	
 	
 	public centroidmanager(Hashtable<Integer, String[]> iris, int centNum){
 		centnum = centNum; 
@@ -36,7 +34,7 @@ public class centroidmanager {
 			}
 			findclose();
 			newCentLoc(); 
-			//System.out.println("Itterate");
+			System.out.println("Itterate");
 		}
 	} 
 	
@@ -79,7 +77,7 @@ public class centroidmanager {
 			for(int l=0; l < centnum; l++){
 				c[l]  = euclidean(items, centpos.get(l));	
 			}
-			centData.get(getmax(c)).add(data.get(i));   // puts the point to the value of the shortest euclidian distance to that centroid's arrray list in Cent Data
+			centData.get(getshort(c)).add(data.get(i));   // puts the point to the value of the shortest euclidian distance to that centroid's arrray list in Cent Data
 			
 		}
 		
@@ -102,11 +100,11 @@ public class centroidmanager {
 		}
 	}
 	
-	private int getmax(double[] nums){
-		double current = 0;
+	private int getshort(double[] nums){
+		double current = 100000;
 		int index = 0; 
 		for(int i=0; i< nums.length; i++){
-			if(current < nums[i]){
+			if(current > nums[i]){
 				index = i; 
 				current = nums[i];
 			}
@@ -122,26 +120,11 @@ public class centroidmanager {
 			sum = sum + Math.pow(sub, 2); 					// raising it to a power of 2 and adding it to the other sums 
 		}
 		result  = Math.sqrt(sum);						// taking the square root of the sums
-		//return  result; 
-		return 1/(1 + result);						// normalizing the number 
+		return  result; 
+		//return 1/(1 + result);						// normalizing the number 
 		
 	}
-	public double computeSSE(){
-		double SSE =0 ; 
-		ArrayList<Double> eucDist = new ArrayList<Double>(); 
-		for(int i=0; i< centData.size(); i++){
-			for(int k=0; k < centData.get(i).size(); k++){
-				double a[] = {Double.parseDouble(centData.get(i).get(k)[0]), Double.parseDouble(centData.get(i).get(k)[1]), Double.parseDouble(centData.get(i).get(k)[2]), Double.parseDouble(centData.get(i).get(k)[3])}; 
-				eucDist.add(euclidean(a, centpos.get(i))); 	
-			}
-			
-		}
-		for(int i=0; i < eucDist.size(); i++){
-			SSE = SSE + Math.pow(eucDist.get(i), 2);
-		}
-		
-		return SSE; 
-	}
+	
 	private double comp(){
 		double result =0;
 		for(int i=0; i < centpos.size(); i++){

@@ -13,10 +13,8 @@ public class kmain {
 		centroidmanager kmeans = new centroidmanager(iris, 3);
 		ArrayList<ArrayList<String[]>> results = kmeans.getResults(); 
 		System.out.println("SEE for Clusters is : " + kmeans.computeSSE());
-		System.out.println(); 
 		System.out.println("Clusters: " + results.size());
 		for(int i =0; i < results.size(); i++){
-			System.out.println(); 
 			System.out.println("Nubmer in Cluster " + i + " is : " + results.get(i).size());
 			double a[] = averages(results.get(i));
 			System.out.println("Spacial Length : " +  a[0]);
