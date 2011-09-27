@@ -35,15 +35,14 @@ public class kmain {
 		for(int i =0; i < results.size(); i++){
 			System.out.println(); 
 			System.out.println(); 
-			System.out.println("Cluster: "  +  (i+1));
-			System.out.println("Number in Cluster " + (i+1) + " is : " + results.get(i).size());
+			System.out.println("Cluster: "  +  i+1);
 			System.out.println("Spacial Length : " +  finalpos.get(i)[0]);
 			System.out.println("Spacial Width : " +  finalpos.get(i)[1]);
 			System.out.println("Petal Length : " +  finalpos.get(i)[2]);
 			System.out.println("Petal Width : " +  finalpos.get(i)[3]);
 			System.out.println(); 
 			
-			
+			System.out.println("Nubmer in Cluster " + i + " is : " + results.get(i).size());
 			
 		}
 	}

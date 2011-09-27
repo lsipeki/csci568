@@ -12,39 +12,30 @@ import java.util.Hashtable;
 public class kmain {
 	public static void main(String[] args) {
 		System.out.println("Enter the number of clusters to form: "); 
-		int in = 0; 
+		int input = 0; 
 		try{
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			String input = reader.readLine();
-			in = Integer.parseInt(input);
-			
+			input = reader.read(); 
 		} catch (IOException e) {
             e.printStackTrace();
         } catch (NumberFormatException e) {
             System.out.println("Input by user was not a number.");
+            e.printStackTrace();
         }
 		Hashtable<Integer, String[]> iris  = fileread("iris.csv");
-		centroidmanager kmeans = new centroidmanager(iris, in);
+		centroidmanager kmeans = new centroidmanager(iris, input);
 		ArrayList<ArrayList<String[]>> results = kmeans.getResults(); 
-		ArrayList<double[]> finalpos = kmeans.getPos(); 
 		System.out.println("SEE for Clusters is : " + kmeans.computeSSE());
 		System.out.println(); 
 		System.out.println("Clusters: " + results.size());
-		
-		
 		for(int i =0; i < results.size(); i++){
 			System.out.println(); 
-			System.out.println(); 
-			System.out.println("Cluster: "  +  (i+1));
-			System.out.println("Number in Cluster " + (i+1) + " is : " + results.get(i).size());
-			System.out.println("Spacial Length : " +  finalpos.get(i)[0]);
-			System.out.println("Spacial Width : " +  finalpos.get(i)[1]);
-			System.out.println("Petal Length : " +  finalpos.get(i)[2]);
-			System.out.println("Petal Width : " +  finalpos.get(i)[3]);
-			System.out.println(); 
-			
-			
-			
+			System.out.println("Nubmer in Cluster " + i + " is : " + results.get(i).size());
+			double a[] = averages(results.get(i));
+			System.out.println("Spacial Length : " +  a[0]);
+			System.out.println("Spacial Width : " +  a[1]);
+			System.out.println("Petal Length : " +  a[2]);
+			System.out.println("Petal Width : " +  a[3]);
 		}
 	}
 	

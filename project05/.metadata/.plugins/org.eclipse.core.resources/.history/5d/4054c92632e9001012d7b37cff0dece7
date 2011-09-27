@@ -158,7 +158,4 @@ public class centroidmanager {
 	public ArrayList<ArrayList<String[]>> getResults(){
 		return centData; 
 	}
-	public ArrayList<double[]> getPos(){
-		return centpos;
-	}
 }
