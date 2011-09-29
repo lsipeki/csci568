@@ -15,8 +15,30 @@ public class features {
 		 coll = c; 
 		 letter_count();
 		 doubles();
+		 first_length(); 
+		 last_length(); 
 		 
 	 }
+	 public void first_length(){
+		 newcol();
+		 coll[size-1] = "lenght of first name"; 
+		 for(int i=0; i<ndata.size(); i++){
+			 String[] split = ndata.get(i)[0].trim().split(" ");
+			 ndata.get(i)[size-1] = String.valueOf(split[0].length());
+		 }
+		 
+	 }
+	 
+	 public void last_length(){
+		 newcol();
+		 coll[size-1] = "lenght of last name"; 
+		 for(int i=0; i<ndata.size(); i++){
+			 String[] split = ndata.get(i)[0].trim().split(" ");
+			 ndata.get(i)[size-1] = String.valueOf(split[split.length-1].length());
+		 }
+		 
+	 }
+	 
 	 public void doubles(){
 		 newcol(); 
 		 coll[size-1] = "# or repeat charachters" ; 
