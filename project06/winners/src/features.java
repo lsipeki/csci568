@@ -13,13 +13,76 @@ public class features {
 		 ndata= d; 
 		 size = 2; 
 		 coll = c; 
-		 letter_count();
-		 doubles();
-		 first_length(); 
-		 last_length(); 
+		 letter_count();	//2
+		 doubles();			//3
+		 first_length(); 	//4
+		 last_length(); 	//5
+		 first_last_ratio(); //6
+		 vowel_count(); 	// 7
+		 first_vowel_count(); // 8
+		 last_vowel_count(); // 9 
 		 
 	 }
-	 public void first_length(){
+	 
+	 private void first_vowel_count(){
+		 newcol() ;
+		 coll[size-1] = "vowels in the first name" ;
+		 for(int i=0; i<ndata.size(); i++){
+			 int vowel_count = 0 ;
+			 String[] parts = ndata.get(i)[0].trim().split(" ");
+			 char[] a = parts[0].toCharArray();
+			 for(int k=0; k < a.length; k++){
+				 if(a[k] == 'a' || a[k] == 'e' || a[k] == 'i' ||  a[k] == 'o' || a[k] == 'u' || a[k] == 'A' || a[k] == 'E' || a[k] == 'I' || a[k] == 'O' || a[k] == 'U'){
+					 vowel_count++; 
+				 }
+			 }
+			 ndata.get(i)[size-1] = String.valueOf(vowel_count); 
+		 }
+	 }
+	 private void last_vowel_count(){
+		 newcol() ;
+		 coll[size-1] = "vowels in the first name" ;
+		 for(int i=0; i<ndata.size(); i++){
+			 int vowel_count = 0 ;
+			 String[] parts = ndata.get(i)[0].trim().split(" ");
+			 char[] a = parts[parts.length-1].toCharArray();
+			 for(int k=0; k < a.length; k++){
+				 if(a[k] == 'a' || a[k] == 'e' || a[k] == 'i' ||  a[k] == 'o' || a[k] == 'u' || a[k] == 'A' || a[k] == 'E' || a[k] == 'I' || a[k] == 'O' || a[k] == 'U'){
+					 vowel_count++; 
+				 }
+			 }
+			 ndata.get(i)[size-1] = String.valueOf(vowel_count); 
+		 }
+	 }
+	  
+	 private void vowel_count(){
+		 newcol() ;
+		 coll[size-1] = "vowels in the name" ;
+		 for(int i=0; i<ndata.size(); i++){
+			 int vowel_count = 0 ; 
+			 char[] a = ndata.get(i)[0].toCharArray();
+			 for(int k=0; k < a.length; k++){
+				 if(a[k] == 'a' || a[k] == 'e' || a[k] == 'i' ||  a[k] == 'o' || a[k] == 'u' || a[k] == 'A' || a[k] == 'E' || a[k] == 'I' || a[k] == 'O' || a[k] == 'U'){
+					 vowel_count++; 
+				 }
+			 }
+			 ndata.get(i)[size-1] = String.valueOf(vowel_count); 
+		 }
+	 }
+	 
+	 
+	 private void first_last_ratio(){
+		 newcol(); 
+		 coll[size-1] = "ratio of first name to last"; 
+		 for(int i=0; i<ndata.size(); i++){
+			 double first = Double.parseDouble(ndata.get(i)[size-3]); 
+			 double last = Double.parseDouble(ndata.get(i)[size-2]); 
+			 double result = first/last; 
+			 ndata.get(i)[size-1] = String.valueOf(result); 
+		 }
+	 }
+	 
+	 private void first_length(){
 		 newcol();
 		 coll[size-1] = "lenght of first name"; 
 		 for(int i=0; i<ndata.size(); i++){
@@ -29,7 +92,7 @@ public class features {
 		 
 	 }
 	 
-	 public void last_length(){
+	 private void last_length(){
 		 newcol();
 		 coll[size-1] = "lenght of last name"; 
 		 for(int i=0; i<ndata.size(); i++){
@@ -39,7 +102,7 @@ public class features {
 		 
 	 }
 	 
-	 public void doubles(){
+	 private void doubles(){
 		 newcol(); 
 		 coll[size-1] = "# or repeat charachters" ; 
 		 for(int i=0; i<ndata.size(); i++){
