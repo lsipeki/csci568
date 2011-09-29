@@ -28,9 +28,30 @@ public class features {
 		 total_cons(); 			//12
 		 first_fl_distance(); //13
 		 last_fl_distance(); //14
+		 alphabetical_distance(); // 15
+		 
+		 
 		 
 		 
 	 }
+	 
+	private void alphabetical_distance(){
+		newcol(); 
+		coll[size-1] = "the of the numerical aphabetical values "; 
+		for(int i =0; i<ndata.size(); i++){
+			char[] parts = ndata.get(i)[0].toCharArray();
+			int sum = 0; 
+			for(int k =0; k<parts.length; k++){
+				 if(parts[k] != '.' && parts[k] != ' ' && parts[k] != '-' && parts[k] != '\''){
+					 sum = sum + alphabet.get(String.valueOf(parts[k]));
+				 }
+				
+			}
+			ndata.get(i)[size-1] = String.valueOf(sum);
+			
+		}
+	}
+	 
 	 private void first_fl_distance(){
 		 newcol(); 
 		 coll[size-1] = "on the alphabet how far awway are the first and last characters of the first name "; 
