@@ -21,7 +21,44 @@ public class features {
 		 vowel_count(); 	// 7
 		 first_vowel_count(); // 8
 		 last_vowel_count(); // 9 
+		 first_cons() ;			//10
+		 last_cons();			//11
+		 total_cons(); 			//12
 		 
+		 
+	 }
+	 
+	 private void total_cons(){ 
+		 newcol(); 
+		 coll[size-1] = "total consonants in the name" ; 
+		 for(int i=0; i<ndata.size(); i++){
+			 int first = Integer.parseInt(ndata.get(i)[10]);
+			 int last  = Integer.parseInt(ndata.get(i)[11]);
+			 int tot = first+last; 
+			 ndata.get(i)[size-1] = String.valueOf(tot);
+		 }
+	 }
+	 
+	 private void first_cons(){
+		 newcol(); 
+		 coll[size-1] = " consonants in the first name";
+		 for(int i=0; i<ndata.size(); i++){
+			 int length = Integer.parseInt(ndata.get(i)[4]);
+			 int vowels = Integer.parseInt(ndata.get(i)[8]);
+			 int con = length - vowels; 
+			 ndata.get(i)[size-1] = String.valueOf(con);
+		 }
+	 }
+	 
+	 private void last_cons(){
+		 newcol(); 
+		 coll[size-1] = " consonants in the first name";
+		 for(int i=0; i<ndata.size(); i++){
+			 int length = Integer.parseInt(ndata.get(i)[5]);
+			 int vowels = Integer.parseInt(ndata.get(i)[9]);
+			 int con = length - vowels; 
+			 ndata.get(i)[size-1] = String.valueOf(con);
+		 }
 	 }
 	 
 	 private void first_vowel_count(){
