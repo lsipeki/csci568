@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Clustering Algroithms</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Clustering Algorithms</h1>
+  <br>
+  <h2>Introduction</h2>
+  <p class="data">    What is meant by clustering ....  </p>
+ <br>
+  <br>
+  <br>
+  <h2> Kmeans CLustering</h2>
+  <p class="dataset"> Kmeans Clustering is one of the most famous clustering algroithms. It is a fairly simple algorithmm. First we choose Kintitial centroids, where K is a user-specified parameter, namely, the number of clusters desired. Each point is then assigned the closest centroid and each collection of points assigned to a centroid is a cluster. The centroid of each clusteris then updated based on the points assigned to it. We repeat the assignment and updated steps until no point changes clusters, or equivalently, until the centroids remain the same. Further down, you can see my implementation of this technique in its own class called centroid manager. It successively goes through the steps of the algorithm unti the centroids do not move finding the optimal clustes.    </p>
+  <h3> The Algorithm </h3>
+   <pre class="code">
+   1) Select K points as initial centroids. 
+   2) REPEAT:
+   3)         Form K clusters by assigning each point to its closest centroid.
+   4)         Recompute the centroid of each cluster
+   5) UNTIL:  Centroids do not change. 
+  
+  </pre>
+  <h3> The Drawbacks </h3>
+    <p class="dataset">Although this algorithm is very efficient it does have its drawbacks. </p>
+    <h4> Outliers </h4>
+     <p class="dataset">When a Euclidiean, or any suqared citation of points is used. The presence of outliers can greatly influence the way the clusters get situated. Due to the fact that the K clusters have to include all the possbile points. Outliers might shift the cetroid greatly due to their presence. Some outlies might even consume one whole cluster to themselves. </p>
+     <h4> Gobular Shapes </h4>
+     <p class="dataset">When the centroids are produced, and calcualted. Data that does not have a gobular shape will cause problems in this clustering algorithms. Finding a linear or circular(hollow) cluster will not be possible with this algorithm. For help with those types of datasets, a DBSCAN is recomended.  </p>
+  <h3> Implementation </h3>
+  <p class="dataset">  </p>
+   <pre class="code">
+  public class centroidmanager {
+  private int centnum = 0 ;
+  private Hashtable&amp;lt;Integer, String[]&amp;gt; data; 
+  private int[] max = new int[4];
+  private ArrayList&amp;lt;ArrayList&amp;lt;String[]&amp;gt;&amp;gt; centData = new ArrayList&amp;lt;ArrayList&amp;lt;String[]&amp;gt;&amp;gt;();   // each object taht belongs to the centroid 
+  //private ArrayList&amp;lt;double[]&amp;gt; closeness = new ArrayList&amp;lt;double[]&amp;gt;();
+  private ArrayList&amp;lt;double[]&amp;gt; centpos = new ArrayList&amp;lt;double[]&amp;gt;();
+  private ArrayList&amp;lt;double[]&amp;gt; lastpos = new ArrayList&amp;lt;double[]&amp;gt;(); 
+  private double SSE = 0; 
+  
+  
+  public centroidmanager(Hashtable&amp;lt;Integer, String[]&amp;gt; iris, int centNum){
+    centnum = centNum; 
+    data = iris;
+    for(int i = 0; i&amp;lt;centnum; i++){
+      centData.add(new ArrayList&amp;lt;String[]&amp;gt;());   // creates data sets for each centroid 
+    }
+    initial_placement();
+    while(comp() &amp;gt; .002) {
+      lastpos.clear(); 
+      for(int i=0; i&amp;lt;centpos.size(); i++){
+        double[] value = new double[centpos.get(i).length]; 
+        for(int k=0; k &amp;lt; centpos.get(i).length; k++){
+          value[k] = centpos.get(i)[k];
+        }
+        lastpos.add(value);
+      }
+      findclose();
+      newCentLoc(); 
+      //System.out.println("Itterate");
+    }
+  } 
+  
+  private void initial_placement(){
+    Random rand = new Random(); 
+    //findmax(); 
+    /*for (int i=0; i&amp;lt;centnum; i++){
+      double[] initial = {(double)rand.nextInt(max[0]), (double)rand.nextInt(max[1]),(double)rand.nextInt(max[2]),(double)rand.nextInt(max[3])};
+      centpos.add(initial);
+    */
+    for(int i=0; i&amp;lt;centnum; i++){
+      int r = rand.nextInt(150);
+      double[] intial = {Double.parseDouble(data.get(r)[0]),Double.parseDouble(data.get(r)[1]),Double.parseDouble(data.get(r)[2]),Double.parseDouble(data.get(r)[3])};
+      centpos.add(intial);
+      double[] in = {(double)0,(double)0,(double)0,(double)0};
+      lastpos.add(in);
+    }
+  }
+  
+  private void findmax(){
+    for(int i=0; i&amp;lt;data.size(); i++){
+      String[] items  = data.get(i);
+      for(int x=0; x&amp;lt;4; x++){
+        int current = (int)Double.parseDouble(items[x]);
+        if(max[x] &amp;lt; current)
+          max[x] = (int)current;
+      }
+    } 
+  }
+  private void findclose(){
+    for(int i=0; i&amp;lt;centData.size(); i++){
+      centData.get(i).clear();
+    }
+    for(int i=0; i&amp;lt;data.size(); i++){
+      double[] items = new double[4];
+      for(int k=0; k&amp;lt;4; k++){
+        items[k] = Double.parseDouble(data.get(i)[k]);
+      }
+      double[] c = new double[centnum]; 
+      for(int l=0; l &amp;lt; centnum; l++){
+        c[l]  = euclidean(items, centpos.get(l)); 
+      }
+      centData.get(getmax(c)).add(data.get(i));   // puts the point to the value of the shortest euclidian distance to that centroid's arrray list in Cent Data
+      
+    }
+    
+  }
+  private void newCentLoc(){
+    for(int i =0; i&amp;lt;centnum; i++){
+      int tot = 0; 
+      double[] sum = new double[4]; 
+      for(int k=0; k &amp;lt; centData.get(i).size(); k++){
+        sum[0] = sum[0] + Double.parseDouble(centData.get(i).get(k)[0]);
+        sum[1] = sum[1] + Double.parseDouble(centData.get(i).get(k)[1]);
+        sum[2] = sum[2] + Double.parseDouble(centData.get(i).get(k)[2]);
+        sum[3] = sum[3] + Double.parseDouble(centData.get(i).get(k)[3]);
+        tot++;
+      }
+      centpos.get(i)[0] = sum[0] / tot; 
+      centpos.get(i)[1] = sum[1] / tot; 
+      centpos.get(i)[2] = sum[2] / tot; 
+      centpos.get(i)[3] = sum[3] / tot; 
+    }
+  }
+  
+  private int getmax(double[] nums){
+    double current = 0;
+    int index = 0; 
+    for(int i=0; i&amp;lt; nums.length; i++){
+      if(current &amp;lt; nums[i]){
+        index = i; 
+        current = nums[i];
+      }
+    }
+    return index;
+  }
+  
+  private double euclidean(double[] a, double[] b){    // euclidean distnace 
+    double result =0; 
+    double sum=0; 
+    for(int i=0; i&amp;lt;a.length; i++){
+      double sub = a[i] - b[i];   // getting the difference between the two coensiding attributes 
+      sum = sum + Math.pow(sub, 2);           // raising it to a power of 2 and adding it to the other sums 
+    }
+    result  = Math.sqrt(sum);           // taking the square root of the sums
+    //return  result; 
+    return 1/(1 + result);            // normalizing the number 
+    
+  }
+  public double computeSSE(){
+    double SSE =0 ; 
+    ArrayList&amp;lt;Double&amp;gt; eucDist = new ArrayList&amp;lt;Double&amp;gt;(); 
+    for(int i=0; i&amp;lt; centData.size(); i++){
+      for(int k=0; k &amp;lt; centData.get(i).size(); k++){
+        double a[] = {Double.parseDouble(centData.get(i).get(k)[0]), Double.parseDouble(centData.get(i).get(k)[1]), Double.parseDouble(centData.get(i).get(k)[2]), Double.parseDouble(centData.get(i).get(k)[3])}; 
+        eucDist.add(euclidean(a, centpos.get(i)));  
+      }
+      
+    }
+    for(int i=0; i &amp;lt; eucDist.size(); i++){
+      SSE = SSE + Math.pow(eucDist.get(i), 2);
+    }
+    
+    return SSE; 
+  }
+  private double comp(){
+    double result =0;
+    for(int i=0; i &amp;lt; centpos.size(); i++){
+      double dist =0; 
+      for(int k=0; k&amp;lt;centpos.get(i).length; k++){
+        dist = dist + Math.pow(centpos.get(i)[k] - lastpos.get(i)[k], 2);
+      }
+      result = result + Math.sqrt(dist); 
+    }
+    
+    return result; 
+  }
+  
+  public ArrayList&amp;lt;ArrayList&amp;lt;String[]&amp;gt;&amp;gt; getResults(){
+    return centData; 
+  }
+  public ArrayList&amp;lt;double[]&amp;gt; getPos(){
+    return centpos;
+  }
+}
+  </pre>
+  <br>
+  <br>
+  <br>
+  <h2> Agglomerative Hierarchial Clustering </h2>
+  <h3> Introduction</h3>
+   <p class="quality"> Hierarchila clustering techniques are a second importatn category of clustering methods. As wit hK-means, these approaches are relatively old compared to many clustring algorithms but they are sill widely used. Agglomerative hierarichal clustering techiniquest are by far the most common, due to the fact that they are displayed in a tree like diagram. The Agglomerative Hierarchial Clustering Algorithm, starts with making every point a cluster. Then successively merging the closest clusters unitl only one remains. </p>
+  <h3> The Algorithm </h3>
+ 
+
+  <pre class="code">
+    1) Compute the proximity matrix, if necessary.
+    2) REPEAT
+    3)        Merge the closest two clusters
+    4)        Updatate the proximity matrix to refelct the proximity between the new cluster and the original clusters. 
+    5) UNITL:    Only one cluster remains
+  </pre>
+  <h3> The Drawbacks </h3>
+  <h4> Merging Decisions are Final </h4> 
+  <p class="quality"> One of the biggest problems with this clustering algorithm is that all of the megring decisions are final. Instead of being able to move clusters like in Kmeans, the clusters are joined together, even though it might not be the best decision. This problem is taken care of in the Kmeans algorithms though.   </p>
+  <h4> Expensive to Calculater </h4> 
+  <p class="quality"> Due to the nature of the algorithm, the distance between the new cluster and all of the other clusters has to be recaluclated when there is a merge that happens. This makes the algorithm very computationaly expensive and would require alot of time for large amounts of data. Once again, the Kmeans algorithm takes care of this isse</p>
+  
+
+  
+  <br>
+  <br>
+  <br>
+   <h2> DBSCAN </h2>
+  <h3> Introduction</h3>
+  <p class="quality"> One of the more difficuly clustering algorhtims is the DBSCAN. First we start off by declaring every point on the map as either a noise, border, or core point. If the point is a core point, then there are at least MinPoint points (user defined) in the Eps (user defined) radius of it. If the point is labeled a border point, then it is in the vicinity of a core point, but it doen not have enought points in its radius to be considered a core point. If it is labeled a noise point then it is not in the vicinlty of a core point and it does not have enough points in its Eps radius. Once all of the points are decided, gets rid of all the noise points, and connects all the core points that are within the radius of another core point. After making every group of connected core points a cluster, the border points are assigned to their relative clusters.  </p>
+  <h3> The Algorithm </h3>
+  
+
+  <pre class="code">
+    1) Label all points as core, border, or noise points. 
+    2) Eliminate noise points. 
+    3) Put an edge between all core points that are within Eps of each other. 
+    4) Make each group of connected core points into a seperate cluster. 
+    5) Assign each border point to one of the clusters of tis associated core point. 
+  </pre>
+  <h3> The Drawbacks </h3>
+  <h4> Varying Density Clustes</h4>
+  <p class="quality"> Although BSCAN is a very effective algorithm for many types of clusters, it does have trouble with clusters of varying density. This problem is the result of the user specified Eps. When the radius is caluclated the less varying densit will be considered noise, since it's MinPoints, are optimized for the more dense cluster. </p>
+  <br>
+  <br>
+  <br>
+  
+
+</div>
+</body>
+</html>
