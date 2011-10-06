@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Rule Based Classification</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Rule Based Classification</h1>
+  
+  <h2>Introduction</h2>
+  <p class="data">    A rule-based classifier is a technique for classifying records using a ncollection of "if...then" rules. The rules for a given model are represented in a disjunctive normal form: </p>
+  <img src="rules.png" alt= "rules" HEIGHT="30" WIDTH="200" BORDER="0"/>
+<br>
+  <p class = "data"> In this case R is known as the rule set and the r's are the classification rules or dijuncts. 
+  <br> Each classification rule can be expressed in the following way: 
+ </p>
+  <img src="rule.png" alt= "rules" HEIGHT="30" WIDTH="200" BORDER="0"/>
+  <br>
+  <p class = "data"> The left hand side of the rule is called the rule antecedent or the precondition. A rule r covers a record x if the precondition of r mathces the attributes of x. r is also said to be fired or tirggeerd whenever it covers a given record. <br> 
+  The qulity of a classification rule can be ealuated using measures such as coverage and accuracy. Given a data set D and a classifciation rule r:A->y, the coerage rule is defined as the fraction of records in D that trigger the rule r. On the other hand it's accuracy or confidence factor is defined as the fraction of records triggered by r whose class labels are equal to y. <br> 
+  <br> 
+  The formal Definitions of accuracy and coverage are below:
+ </p>
+ <img src="accuracy.png" alt= "rules" HEIGHT="40" WIDTH="250" BORDER="0"/>
+ <br>
+ <br>
+ <img src="coverage.png" alt= "rules" HEIGHT="40" WIDTH="250" BORDER="0"/>
+ <br>
+ <p class = "data"> 
+  In the previous equations, |A| is the number of records that satisfy the rule antecedent, A and y is the number of records that astisfy both the antecedent and consequent, and |D| is the total number of records. 
+ </p>
+  <br>
+  <h2> How Rule Based Classifiers Work</h2>
+  <p class="dataset"> A rule-based classifier classifies a test record ased on the rule triggered by the record. </p>
+  <h3>Mutually Exclusive Rules</h3>
+  <p class="dataset"> The rules in a rule set R are mutually exclusive if no two rules in R are triggered by the same record. This properity ensures that every record is covered by at most one rule in R. </p>
+  <br> 
+  <h3>Exhaustive Rules</h3>
+  <p class="dataset"> A rule set R has exhaustive coverage if there is a rule for each combination of attribute value. This property ensures that every record is covered by at least one rule in R.<br><br> 
+  Together these properties ensure that every record is covered by exactly one rule. Unfortunately, many rule based calssifiers do not have such proerties. If the rule set is not exhaustive then a default rule must be added to cover the remaining test cases. If a rule set is not mutually exclusive then a record can be covered by several rules, some of which may predict conflicting cases. But the two ways of overcoming the rules are: </p>
+  <br>
+  <h3>Ordered Rules</h3>
+  <p class="dataset"> Rules in the rule set are ordered in adecresing order to their priority, which can be defined in may way. An ordered rules set is also known as a decision list. When a test record is presetnted, it is calssified by the highest-ranked rule that ocveres the record. This avoids the problem of  having clonflicting classes predicted by multiple classification rules. </p>
+  <br>
+  <h3>Unordered Rules</h3>
+  <p class="dataset">  An unordered rules approach allows a test record to triggere multiple classification rules and consdiers the consequent of each rule as a vote fr  a particualr class. The votes are then tallied to determin th class label of the test record. The record is ualally assigned to the class that receives the highest number of votes. In some cases, the vote may be weighted by the rule's accuracy. Using unordered rules to buld a rule-based calssifier has both advantages and disadvantages.</p>
+  <h4> Advantages </h4> 
+    <p class="dataset"> Unordered rules are less susceptible to erros caused by the wrong rule being selcted to classify a test record (unlike ordered ruls, which are sensitive to the coice of rule ordering criteria). <br>
+    The model building is less expesive because the rules are not kept in order. </p> 
+  <h4> Disadvatages</h4> 
+  <p class="dataset">  Calssifying a record can be quite expensive task because the attributes of the test record must be compared against the precondition of every rule in the rule set. </p>
+
+
+  <h2> Sequential Covering</h2> 
+  <h3> Introduction</h3> 
+  <p class="quality"> The sequential covering algorithm is ofent used to extract rules directly form data. Rules are grown in a greedy fashipn based on tacertain evaluation measur. The algorithm extracts the rules one class at a time from data sets that contain more than two calsses. The criterion for deciding which calss should be generated first depends on a number for factors, shcuh as the class prevelance or the cost of misclassifying records from a given class.
+   </p>
+   <h3>The algorithm</h3> 
+   <img src="SeqCovering.png" alt= "rules" HEIGHT="300" WIDTH="550" BORDER="0"/>
+  <br><BR><BR>
+  <h2>Benefits</h2>
+  <p class="dataset"> *  Acts as highly expressive as a decision tree <br>
+  * Easy to interpret <br>
+  * Easy to generate  <bR> 
+  * Can classify new instanes rapidly <br> 
+  * Perfromance comparable to decision trees <br> </p>
+  
+  <p class="dataset">  </p>
+  <br>   
+  <h2> Drawbacks </h2>
+
+  
+  <p class="quality">  * Manual Design <br> 
+  * Poor Reproducablity <br> 
+  * Poor Evaluation Methods (such as resubstitution)
+  * Large Overtraining Effect 
+   </p>
+  
+  <br>
+  <br>
+  <br>
+  
+
+</div>
+</body>
+</html>

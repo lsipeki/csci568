@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Bayesian Classification</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Bayesian Classification</h1>
+  <br>
+  <h2>Introduction</h2>
+  <p class="data">    In many applications the relationship betweeen the attribute set and the class variable is non-deterministic. In oter words, the class label of a test record cannot be predicted with certainty. In these situation the Bayesian classification works well. The Bayes Theorem, is a statistical principle for combining prior knowledge of the classes with new evidence gathered from data.  </p>
+  <h2> The Bayes Theorem </h2>
+  <p class="dataset"> For two events A and B, P(A|B) is the probablitly of A given B. So the probablity of A happening if B happend.  </p>
+  <img src="beq.png" alt= "rules" HEIGHT="50" WIDTH="200" BORDER="0"/>
+ <br>
+ <h2> Naive Bayes Classification</h2>
+  <p class="dataset"> The way that the Bayes Theorem translates to a calssification algorithm is to replace B with a class label, and A with a attribute set. This creates a class-conditional probablity that shows the probability that a data object is in class Y given the attribute set X. This probablity is unknown for real-world classification problems, so the goal of the Naive Bayes Calssifiers is to estimate form the test data.   </p>
+  <img src="bneweq.png" alt= "rules" HEIGHT="50" WIDTH="300" BORDER="0"/>
+  <br>
+  <br>
+  <h2>Benefits</h2>
+  <p class="dataset"> 
+  * Needs small amounts of Training Data to estimate the parameters<br> 
+  * Answers will be consistent <br>
+  * Not really susesptible to noise<br>
+  * Simple to interpret <br>
+  * Doesn't need stopping rules<br>
+  * Elimination of Noise is straight forward <br>
+    </p>
+  
+  <p class="dataset">  </p>
+  
+  <h2> Drawbacks </h2>
+
+  
+  <p class="quality">
+  * It requires us to specify a prio distribution for a ll unknonw parameters. <br>
+  * Cannot change depending on new data, likelyhood is used <br>
+    </p>
+  
+  <br>
+  <br>
+  <br>
+  
+
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Nearest Neighbor Classification</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Nearest Neighbor Classification</h1>
+  <br>
+  <h2>Introduction</h2>
+  <p class="data">    The stragetgy that the Nearest Neighbor is different from Rule Based Classifiers. Rule based classifiers are eager learnes because they are designed to learn a model that maps the input attributes to the class label as soon as the training data is available. Nearest Neighbor Classifiers are different because they delay the process of modeling the training data until it is needed ot classify the test examples. Techniques that employ this strategy are known as lazy learnings. A Nearest-neighbor classifier represents each example as a data point in d-dimensional space, where d is athe nubmer of attributes. Given a test example, we compute it's proximity ot the rest of the databoints in the training set, usning on of the proximity measurements. <br> 
+  <br> 
+  Nearest-Neighbor Classification is a poart of a more general technique known as instance- based learning, which uses psecific training instances to make predictions without having to maintain an abstraction defived from the data. Due to this startegy of classification, the nearest neighbor is very suseptible to noise and can often produce the wrong results. </p>
+ 
+  <h2>Algorithm</h2>
+  <p class="data">This is the algorithm for the K-Nearest Neighbor Classification</p>
+  <img src="KNalg.png" alt= "rules" HEIGHT="200" WIDTH="550" BORDER="0"/>
+  <br>
+  <br>
+  <br>
+  <h2>Benefits</h2>
+  <p class="dataset"> * There is not training required because the model is used as a lazy learner instead of a abstraction to the test data <br>
+  * With lack of noise, the algorithm can be quite accurate 
+  * with small amounts of test data, and largea amoutns of training data, alogrithm become quite accurate. <br> </p>
+  
+  <h2> Drawbacks </h2>
+
+  
+  <p class="quality"> * Because of the lack of calculations in the training data, classifying the test data can be expensive<br>
+  *  Depending on the value of K (in the K-nearest Neighobr) the value might change < br>
+  *  Very suseptible to noise<br> 
+  *  Very Suspetible to overfitting<br>
+  *  Depending on the value of K the answers might vary<br> 
+  *  Depending on the distance algorithm the answers might be wrong.  </p>
+  
+  <br>
+  <br>
+  <br>
+  
+
+</div>
+</body>
+</html>
