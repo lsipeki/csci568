@@ -35,18 +35,18 @@ public class Manager {
 		for (int i = 0; i < in_nodes; i++) {
 			for (int j = 0; j < mid_nodes; j++) {
 				double n = rand.nextDouble();
-				double[] n_con = { (double) i, (double) in_nodes + j, 0.5 };
+				double[] n_con = { (double) i, (double) in_nodes + j, n };
 				weights.add(n_con);
-				System.out.println(i + "   " + n_con[1] + "    " + n_con[2]);
+				System.out.println(i + "   " + n_con[1] + "    " + n);
 			}
 		}
 		for (int i = 0; i < mid_nodes; i++) {
 			for (int j = 0; j < out_nodes; j++) {
 				double n = rand.nextDouble();
 				double[] n_con = { (double) in_nodes + i,
-						(double) mid_nodes + in_nodes + j, 0.5 };
+						(double) mid_nodes + in_nodes + j, n };
 				weights.add(n_con);
-				System.out.println(n_con[0] + "   " + n_con[1] + "    " + n_con[2]);
+				System.out.println(n_con[0] + "   " + n_con[1] + "    " + n);
 			}
 		}
 	}
