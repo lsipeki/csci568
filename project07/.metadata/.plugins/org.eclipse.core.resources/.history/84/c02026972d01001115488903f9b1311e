@@ -5,8 +5,7 @@ import java.util.Random;
 public class Manager {
 	int in_nodes, mid_nodes, out_nodes;
 
-	double[][] in_weights; 
-	double[][] out_weights; 
+	ArrayList<double[]> weights = new ArrayList<double[]>();
 	double[] in;
 	double[] mid;
 	double[] out;
@@ -20,9 +19,6 @@ public class Manager {
 		in = new double[in_nodes];
 		mid = new double[mid_nodes];
 		out = new double[out_nodes];
-		in_weights = new double[in_nodes][mid_nodes];
-		out_weights = new double[mid_nodes][out_nodes]; 
-		
 
 		create_connections();
 		double[] t = { 1.0, 0.25, -.5 };
@@ -39,53 +35,48 @@ public class Manager {
 		double[] input = { 1.0, 0.25, -.5 };
 		double[] target = {1.0, -1.0, 0.0};
 		double[] act = run(input);
-		while(euclidean(target, act) < .99){
+		while(euclidean(target, act) > .1){
 			double[] o = o_errors(act, target);
 			double[] m = m_errors(o);
 			update_out(o);
 			update_mid(m);
 			
 			act = run(input);
-			System.out.println("----------------------");
 			for (int i = 0; i < act.length; i++) {
 				System.out.println(act[i]);
 			}
 		}
-		System.out.println();
-		System.out.println("Target values");
-		System.out.println(1.0);
-		System.out.println(-1.0);
-		System.out.println(0);
 	}
 	
 	private double[] m_errors(double[] o_deltas){
-		double[] h_deltas = new double[mid.length];
-		double error = 0; 
-		for(int i=0; i<h_deltas.length; i++){
-			error = 0; 
-			for(int k=0; k<o_deltas.length; k++){
-				error = error + o_deltas[k]*out_weights[i][k];
-			}
-			h_deltas[i] = dtanh(mid[i]) * error; 
-		}
+		double[] m_deltas = new double[mid.length];
 		
-		return h_deltas;
+		for(int i=0; i<mid.length; i++){
+			double error = 0; 
+			for(int k=0; k < o_deltas.length; k++){
+				error = error + o_deltas[k] * mid[i];
+			}
+			m_deltas[i] = error * in[i];
+		}
+		return m_deltas; 
 	}
 	
 	private void update_out(double[] o_delta){
-		for(int i=0; i<mid.length; i++){
-			for(int k=0; k<out.length; k++){
-				double change = o_delta[k] * mid[i];
-				out_weights[i][k] = out_weights[i][k] + change/2; 
+		for(int i=0; i<o_delta.length; i++){
+			for(int k=0; k<weights.size(); k++){
+				if(weights.get(k)[1] == mid.length + in.length + i){
+					weights.get(k)[2] = o_delta[i] * weights.get(k)[2]; 
+				}
 			}
 		}
 	}
 	
 	private void update_mid(double[] m_delta){
-		for(int i=0; i<in.length; i++){
-			for(int k=0; k<mid.length; k++){
-				double change = m_delta[k] * in[i];
-				in_weights[i][k] = in_weights[i][k] + change/2; 
+		for(int i=0; i<m_delta.length; i++){
+			for(int k=0; k<weights.size(); k++){
+				if(weights.get(i)[1] == in.length + i){
+					weights.get(k)[2] = dtanh(m_delta[i]) * weights.get(k)[2];
+				}
 			}
 		}
 	}
@@ -104,36 +95,51 @@ public class Manager {
 
 	private void create_connections() {
 		Random rand = new Random();
-		for(int i=0; i<in_weights.length; i++){
-			for(int j=0; j<in_weights[i].length; j++){
-				in_weights[i][j] = rand.nextDouble();
+		for (int i = 0; i < in_nodes; i++) {
+			for (int j = 0; j < mid_nodes; j++) {
+				double n = rand.nextDouble();
+				double[] n_con = { (double) i, (double) in_nodes + j, n  };
+				weights.add(n_con);
+				System.out.println(i + "   " + n_con[1] + "    " + n_con[2]);
 			}
 		}
-		
-		for(int i=0; i<out_weights.length; i++){
-			for(int j=0; j<out_weights[i].length; j++){
-				out_weights[i][j] = rand.nextDouble();
+		for (int i = 0; i < mid_nodes; i++) {
+			for (int j = 0; j < out_nodes; j++) {
+				double n = rand.nextDouble();
+				double[] n_con = { (double) in_nodes + i,
+						(double) mid_nodes + in_nodes + j, n };
+				weights.add(n_con);
+				System.out.println(n_con[0] + "   " + n_con[1] + "    " + n_con[2]);
 			}
 		}
 	}
 
 	public double[] run(double[] input) {
 		in = input;
-		for(int j=0; j<mid.length; j++){
-			double value = 0; 
-			for(int i=0; i<in.length; i++){	
-				value = value + in[i] * in_weights[i][j];
+
+		for (int i = 0; i < mid.length; i++) {
+			double sum = 0;
+			for (int k = 0; k < weights.size(); k++) {
+				if (weights.get(k)[1] == in_nodes + i) {
+					sum = sum + in[(int) weights.get(k)[0]] * weights.get(k)[2];
+				}
 			}
-			mid[j] = value;
+
+			mid[i] = Math.tanh(sum);
 		}
-		for(int j=0; j<out.length; j++){
-			double value=0; 
-			for(int i=0; i<mid.length; i++){
-				value = value + mid[i] * out_weights[i][j];
+		for (int i = 0; i < out.length; i++) {
+			double sum = 0;
+			for (int k = 0; k < weights.size(); k++) {
+				if (weights.get(k)[1] == in_nodes + mid_nodes + i) {
+					sum = sum + mid[(int) weights.get(k)[0] - in_nodes]
+							* weights.get(k)[2];
+				}
 			}
-			out[j] = value;
+
+			out[i] = Math.tanh(sum);
 		}
-		return out; 
+
+		return out;
 	}
 	
 	public double euclidean(double[] a, double[] b){    // euclidean distnace 

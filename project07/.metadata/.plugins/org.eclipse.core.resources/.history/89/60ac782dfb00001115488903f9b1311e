@@ -1,0 +1,82 @@
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Random;
+
+public class Manager {
+	int in_nodes, mid_nodes, out_nodes;
+
+	ArrayList<double[]> weights = new ArrayList<double[]>();
+	double[] in;
+	double[] mid;
+	double[] out;
+
+	public Manager(int input, int middle, int output) {
+
+		in_nodes = input;
+		mid_nodes = middle;
+		out_nodes = output;
+
+		in = new double[in_nodes];
+		mid = new double[mid_nodes];
+		out = new double[out_nodes];
+
+		create_connections();
+		double[] t = { 1.0, 0.25, -.5 };
+		double[] test = run(t);
+
+		for (int i = 0; i < test.length; i++) {
+			System.out.println(test[i]);
+		}
+
+	}
+
+	private void create_connections() {
+		Random rand = new Random();
+		for (int i = 0; i < in_nodes; i++) {
+			for (int j = 0; j < mid_nodes; j++) {
+				double n = rand.nextDouble();
+				double[] n_con = { (double) i, (double) in_nodes + j, 0.5 };
+				weights.add(n_con);
+				System.out.println(i + "   " + n_con[1] + "    " + n_con[2]);
+			}
+		}
+		for (int i = 0; i < mid_nodes; i++) {
+			for (int j = 0; j < out_nodes; j++) {
+				double n = rand.nextDouble();
+				double[] n_con = { (double) in_nodes + i,
+						(double) mid_nodes + in_nodes + j, 0.5 };
+				weights.add(n_con);
+				System.out.println(n_con[0] + "   " + n_con[1] + "    " + n_con[2]);
+			}
+		}
+	}
+
+	public double[] run(double[] input) {
+		in = input;
+
+		for (int i = 0; i < mid.length; i++) {
+			double sum = 0;
+			for (int k = 0; k < weights.size(); k++) {
+				if (weights.get(k)[1] == in_nodes + i) {
+					sum = sum + in[(int) weights.get(k)[0]] * weights.get(k)[2];
+				}
+			}
+
+			mid[i] = sum;
+		}
+		for (int i = 0; i < out.length; i++) {
+			double sum = 0;
+			for (int k = 0; k < weights.size(); k++) {
+				if (weights.get(k)[1] == in_nodes + mid_nodes + i) {
+					sum = sum + mid[(int) weights.get(k)[0] - in_nodes]
+							* weights.get(k)[2];
+				}
+			}
+
+			out[i] = sum;
+		}
+
+		return out;
+	}
+
+}

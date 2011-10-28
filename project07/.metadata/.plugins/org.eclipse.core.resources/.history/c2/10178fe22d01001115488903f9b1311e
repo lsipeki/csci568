@@ -31,7 +31,7 @@ public class Manager {
 		for (int i = 0; i < test.length; i++) {
 			System.out.println(test[i]);
 		}
-		train();
+		//train();
 
 	}
 	
@@ -39,55 +39,33 @@ public class Manager {
 		double[] input = { 1.0, 0.25, -.5 };
 		double[] target = {1.0, -1.0, 0.0};
 		double[] act = run(input);
-		while(euclidean(target, act) < .99){
+		while(euclidean(target, act) > .1){
 			double[] o = o_errors(act, target);
 			double[] m = m_errors(o);
 			update_out(o);
 			update_mid(m);
 			
 			act = run(input);
-			System.out.println("----------------------");
 			for (int i = 0; i < act.length; i++) {
 				System.out.println(act[i]);
 			}
 		}
-		System.out.println();
-		System.out.println("Target values");
-		System.out.println(1.0);
-		System.out.println(-1.0);
-		System.out.println(0);
 	}
 	
 	private double[] m_errors(double[] o_deltas){
-		double[] h_deltas = new double[mid.length];
-		double error = 0; 
-		for(int i=0; i<h_deltas.length; i++){
-			error = 0; 
-			for(int k=0; k<o_deltas.length; k++){
-				error = error + o_deltas[k]*out_weights[i][k];
-			}
-			h_deltas[i] = dtanh(mid[i]) * error; 
-		}
+		double[] m = new double[mid.length];
 		
-		return h_deltas;
+		return m;
 	}
 	
 	private void update_out(double[] o_delta){
-		for(int i=0; i<mid.length; i++){
-			for(int k=0; k<out.length; k++){
-				double change = o_delta[k] * mid[i];
-				out_weights[i][k] = out_weights[i][k] + change/2; 
-			}
-		}
+		
 	}
 	
 	private void update_mid(double[] m_delta){
-		for(int i=0; i<in.length; i++){
-			for(int k=0; k<mid.length; k++){
-				double change = m_delta[k] * in[i];
-				in_weights[i][k] = in_weights[i][k] + change/2; 
-			}
-		}
+		
+		
+		
 	}
 	private double dtanh(double y){
 		return 1.0 - (y * y); 
@@ -112,7 +90,7 @@ public class Manager {
 		
 		for(int i=0; i<out_weights.length; i++){
 			for(int j=0; j<out_weights[i].length; j++){
-				out_weights[i][j] = rand.nextDouble();
+				in_weights[i][j] = rand.nextDouble();
 			}
 		}
 	}
