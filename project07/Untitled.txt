@@ -1,0 +1,14 @@
+README 
+
+
+To run this program just run the Main.Java function. 
+This class is very simple just creates a instance of the Manager Class. 
+When the constructor is called it starts the training function so the result should be 
+sets of three numbers that should get really close the the desired output. 
+When the training is done, the Console will provide the right info. 
+
+
+Disclaimer: 
+I have run into errors where I find that the values just become " NaN" 
+I don't know where that's coming from, but it only happens 1 out of 20 times
+I have run this program 

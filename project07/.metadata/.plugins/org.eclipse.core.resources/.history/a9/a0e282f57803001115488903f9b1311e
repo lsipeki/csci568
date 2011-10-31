@@ -196,7 +196,6 @@ public class Manager {
 		return out; 
 	}
 	
-	// euclidean distance from project 4 
 	public double euclidean(double[] a, double[] b){    // euclidean distnace 
 		double result =0; 
 		double sum=0; 

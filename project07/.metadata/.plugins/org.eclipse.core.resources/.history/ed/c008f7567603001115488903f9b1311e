@@ -66,7 +66,7 @@ public class Manager {
 		// calls run function that puts values into the act(ual) array
 		double[] act = run(input);
 		// act and target arrays are compared using the Euclidean distance and if values aren't close enought then enters while loop
-		while(euclidean(target, act) < .999){
+		while(euclidean(target, act) < .99){
 			// function is called to calculate the output_deltas
 			double[] o = o_errors(act, target);
 			//function is called to calculate the hiddent_deltas with the input parameter of the input deltas
@@ -85,53 +85,40 @@ public class Manager {
 			}
 		}
 		
-		System.out.println();
-		System.out.println("Training Complete Based on ");
 		// When the training is done the actaul target values are reprinted for human comparision 
+		System.out.println();
 		System.out.println("Target values");
 		System.out.println(1.0);
 		System.out.println(-1.0);
 		System.out.println(0);
 	}
 	
-	
-	//this function calcualtes the hidden_deltas 
 	private double[] m_errors(double[] o_deltas){
-		//creates array apprpriate size for hidden nodes 
 		double[] h_deltas = new double[mid.length];
-		
 		double error = 0; 
-		// for all nodes in the hiden layer
 		for(int i=0; i<h_deltas.length; i++){
 			error = 0; 
 			for(int k=0; k<o_deltas.length; k++){
-				// calculates the combined total of all of the output_deltas with their respective output_weights
 				error = error + o_deltas[k]*out_weights[i][k];
 			}
-			//the hidden_node values is called with the dtanh function mutiplied with the resulting error
 			h_deltas[i] = dtanh(mid[i]) * error; 
 		}
 		
 		return h_deltas;
 	}
 	
-	//this function updates the output_weights between hidden and output layer
 	private void update_out(double[] o_delta){
 		for(int i=0; i<mid.length; i++){
 			for(int k=0; k<out.length; k++){
-				// change is caluclated with the output delta multiplied iwth the apropriate hidden node value
 				double change = o_delta[k] * mid[i];
-				// change is added to the weights affected 
 				out_weights[i][k] = out_weights[i][k] + change/2; 
 			}
 		}
 	}
 	
 	private void update_mid(double[] m_delta){
-		// updated the middle 
 		for(int i=0; i<in.length; i++){
 			for(int k=0; k<mid.length; k++){
-				//creates the change that is product of the hidden_deltas and the in_node values 
 				double change = m_delta[k] * in[i];
 				in_weights[i][k] = in_weights[i][k] + change/2; 
 			}
@@ -144,39 +131,29 @@ public class Manager {
 	private double[] o_errors(double[] r, double[] t){
 		double[] o_deltas = new double[r.length];
 		for(int i=0; i<r.length; i++){
-			// find the error which is a difference of the target and the actual 
 			double error = t[i] - r[i];
-			//product of the dtanh function with the output value and the error 
 			o_deltas[i] = dtanh(out[i]) * error;
 		}
 		return o_deltas;
 	}
 
-	
-	// This function creates random weights so that the program will be better at training the data
 	private void create_connections() {
-		// random class instance is defined 
 		Random rand = new Random();
 		for(int i=0; i<in_weights.length; i++){
 			for(int j=0; j<in_weights[i].length; j++){
-				//creates a new random number fore each weight in the first set of weighst 
 				in_weights[i][j] = rand.nextDouble();
 			}
 		}
 		
 		for(int i=0; i<out_weights.length; i++){
 			for(int j=0; j<out_weights[i].length; j++){
-				// creates a new random double for each set of weights in the second set of weights
 				out_weights[i][j] = rand.nextDouble();
 			}
 		}
 	}
 
-	// this function runs values through the ann and returns the result 
 	public double[] run(double[] input) {
-		
 		in = input;
-		// this for loop adds up all the weights and apropriate inputs and places them in the array for hidden values 
 		for(int j=0; j<mid.length; j++){
 			double value = 0; 
 			for(int i=0; i<in.length; i++){	
@@ -184,8 +161,6 @@ public class Manager {
 			}
 			mid[j] = value;
 		}
-		
-		// this for loop takes the weights from the middle and places them in the array for output values 
 		for(int j=0; j<out.length; j++){
 			double value=0; 
 			for(int i=0; i<mid.length; i++){
@@ -196,7 +171,6 @@ public class Manager {
 		return out; 
 	}
 	
-	// euclidean distance from project 4 
 	public double euclidean(double[] a, double[] b){    // euclidean distnace 
 		double result =0; 
 		double sum=0; 
