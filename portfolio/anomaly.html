@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Anomaly Detection</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Anomaly Detection</h1>
+  <br>
+  <h2>Introduction</h2>
+  <p class="data">Anomaly detection is a very important and useful part of data mining. It is also one of the most frequently used. Due to cyber security, many companies try do detect objects in data that does not fit the normal trends. These outliers are very hard to detect, due to the fact that a "normal" trend might not follow a given simple path. </p>
+
+  
+ <h2> Model-Based Approach </h2> 
+    <p class="data"> The most common approach for Anomaly Detection is a Model-Based Approach. This technicuqe involves building a model before the anomalies are detected. The Anomalies are objects in the dataset that do not fit the model very well. The model that is being buit can represent many different things. All data mining tools can be used to create a model. In case of clustering algorithms used to build a model, the anomalies would be the objects in the data that do not belong to any of the clusters. Classification cna be aslo used for building models of two classes, anomalies and normal objects. Of course, in case that classification is used then the model has to know some objects that are anomalies in some sort of training data.  </p>
+    <br>
+  <h3>        Statistical Approach </h3> 
+  <p class="data"> Statistical Appraoch is greatly used as a part of model-based anomaly detection. This approach creates the outlier as a part of statistical summary of the data. The distribution of the data is analyzed and then the objects in the greatest standard deviation are selected as possbile outlers. One advantage to this type of method is that it can handle great amounts of data. The fallback to this type of techniuqe is that it does not handle large dimensionality data and the strategy used must be carefully fit to the data.  </p>
+
+  <br><br>
+  <h2>Proximity-Based Technique </h2>
+  <p class="data">This type of approach estimates the relative proximity of an object. It is sometimes easy to define a proximity as a simple measure between objects, but sometime it can be really difficult. In this case an anomaly is proposed as an object that is far away form most of the objects. There are two types of Proximity-based techiniques. The first one is a simple model that gives one relative ceter where all the points lie. The problem with this strategy is when the data is in varying clusters. Another and more commonly used tecnique is the the K-Nearest Neighboor Anomaly detection. This detection like the classification algorithm, measures the distance to the k nearest points. Using the average of them, the distance is then held up to a threashold to determine if the object is an anomaly or not. Nevertheless, this startegy is also very dependend on the user input and can be inaffective against datasets with varying density.</p>
+  <br>
+  <h2> Density-Based Techniques </h2> 
+  <p class="data"> A Density Based approach estimates the density of the relative area to determine if an object is an anomaly or not.  </p>
+  <br>
+  <h2> Clustering-Based Technique </h2>
+  <p class= "dataset"> </p>
+  <br>
+  <br>
+  
+
+</div>
+</body>
+</html>

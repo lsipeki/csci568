@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Association Analysis</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
+<!--[if IE]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
+<body>
+<div class="container">
+  <h1>Association Analysis</h1>
+  <br>
+  <h2>Introduction</h2>
+  <p class="data">Some businesses in the world have a very broad products base. This becomes a problem when they try to run certain Data Mining alogrithms not designed for this type of data. Imagine a gorcery chain store. They harvest the data from individual customer on which items they bought. When trying to extract meaning form the data, Assocaition analysis is one of the best way to approach the problem. Trying to find connnections between the data by using frequent itmesets, give a much more efficient process to find mean in a very big set of mostly binary data.  </p>
+
+  
+ <h2> Classical Association Analysis (Apriori)</h2> 
+ <p class="data">  </p>
+  <h3> The Apriori Principle </h3>
+   <p class="data"> The Apriori Principle says that if an itemset is frequent, then all of the subsets of that itmeset must be frequent as well. This ideal greatly reduces the number of itemsets that need to be generated when trying to find all of the frequent itemsets of a given dataset. </p>
+  
+  <br><br>
+  <h3> Algorithm  </h3>
+  <img src="apriori.png" alt= "rules" HEIGHT="400" WIDTH="700" BORDER="0"/><br><br>
+
+  <br>
+  <h3> Canidate Generation </h3> 
+  <p class="data"> This algorithm works by originally selecting all itemsets from all singular items. Then it measures the frequencey of these itemsets. If they pass a certain threashold then they are put in a categroy of frequenct itemsets. When selecting the second level of itemsets, only the frequent itemsets are used. This allows the algorthm to not do unnecessary caluclations. When the 2 itemsets are generated, the threashold is then measured again them to see if they become part of the frequent 2 itemsets. The process keeps going until none of the itemsets generated pass the threashold or there can be no more combinations of data objects. </p>
+  <br>
+  <h2> F x F Methods </h2> 
+  <p class="dataset">A modification to the Apriori principle is the F x F methods to find the frequent itmesets of a given association analysis. The different levels of K describe the level that it belongs to when making the combinations of the new levles. K1 x Kn-1 means that the newly generated itemsets will be made up of a combinations of the previously generated frequent itemset and the original 1 layer frequent itmesets. This specific K x K give s the impression of the classic algorithm. When using the Kn-1 x Kn-1 startegy, this allows us to combine aspects of the previously generated frequent itemsets to provide a new frequent itemset.</p>
+  <h2>Rule Generation </h2> 
+  <p class="cataset"> When the itemsets are generated, the support is caluclated to find how accurate these finding actually are. When the adequeate frequent number of itemsets are generated, then the rules are generated. This process relies on the confidence that a given statment will actually provide valid results in the dataset. When all of the rules are generated, using the same process as the itemset generation, the confidence is calculated for each of the rules and found to validate the rules. Selecting rules that are above a certain confidence threshold will give the final ruls that are generated.  </p>
+
+  
+
+  <br>
+  <br>
+  
+
+</div>
+</body>
+</html>
