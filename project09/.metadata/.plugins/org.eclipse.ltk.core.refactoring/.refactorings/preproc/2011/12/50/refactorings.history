@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;similarity&apos; to &apos;Similarity&apos;&#x0A;- Original project: &apos;preproc&apos;&#x0A;- Original element: &apos;similarity&apos;&#x0A;- Renamed element: &apos;Similarity&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;similarity&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{similarity.java[similarity" matchStrategy="1" name="Similarity" qualified="false" references="true" similarDeclarations="false" stamp="1323151935931" textual="false" version="1.0"/>
+</session>

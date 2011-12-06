@@ -1,0 +1,50 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.io.File;
+
+
+public class Basic {
+	public String user; 
+	public Basic(String r){
+		user = ""; 
+		read_and_write(r); 
+	}
+	
+	private void read_and_write(String filename){
+		try {
+		    BufferedReader in = new BufferedReader(new FileReader(filename));
+		    String str;
+		    Writer output = null;
+		    String text = "";
+		    File file = new File("basic.txt");
+		    output = new BufferedWriter(new FileWriter(file));
+		    
+		    
+		    while ((str = in.readLine()) != null) {
+		        text = change(str);
+		    }
+		    output.write(text);
+		    
+		    output.close();
+		    System.out.println("Your file has been written");  
+		    in.close();
+		} catch (IOException e) {
+		}
+	}
+	private String change(String in){
+		String result = "" ;
+		if(in.contains("|")){
+			String[] parts = in.split("|"); 
+			user = parts[0].trim();
+		}
+		else{
+			String[] parts = in.split("  ");
+			result = user + "|" + parts[0] + "|" + parts[1];
+		}
+		return result; 
+	}
+}
