@@ -45,27 +45,27 @@
    <pre class="code">
   public class centroidmanager {
   private int centnum = 0 ;
-  private Hashtable&amp;lt;Integer, String[]&amp;gt; data; 
+  private Hashtable&amp;Integer, String[]&amp; data; 
   private int[] max = new int[4];
-  private ArrayList&amp;lt;ArrayList&amp;lt;String[]&amp;gt;&amp;gt; centData = new ArrayList&amp;lt;ArrayList&amp;lt;String[]&amp;gt;&amp;gt;();   // each object taht belongs to the centroid 
-  //private ArrayList&amp;lt;double[]&amp;gt; closeness = new ArrayList&amp;lt;double[]&amp;gt;();
-  private ArrayList&amp;lt;double[]&amp;gt; centpos = new ArrayList&amp;lt;double[]&amp;gt;();
-  private ArrayList&amp;lt;double[]&amp;gt; lastpos = new ArrayList&amp;lt;double[]&amp;gt;(); 
+  private ArrayList&amp;ArrayList&amp;String[]&amp;&amp; centData = new ArrayList&amp;ArrayList&amp;String[]&amp;&amp;();   // each object taht belongs to the centroid 
+  //private ArrayList&amp;double[]&amp; closeness = new ArrayList&amp;double[]&amp;();
+  private ArrayList&amp;double[]&amp; centpos = new ArrayList&amp;double[]&amp;();
+  private ArrayList&amp;double[]&amp; lastpos = new ArrayList&amp;double[]&amp;(); 
   private double SSE = 0; 
   
   
-  public centroidmanager(Hashtable&amp;lt;Integer, String[]&amp;gt; iris, int centNum){
+  public centroidmanager(Hashtable&amp;Integer, String[]&amp; iris, int centNum){
     centnum = centNum; 
     data = iris;
-    for(int i = 0; i&amp;lt;centnum; i++){
-      centData.add(new ArrayList&amp;lt;String[]&amp;gt;());   // creates data sets for each centroid 
+    for(int i = 0; i&amp;centnum; i++){
+      centData.add(new ArrayList&amp;String[]&amp;());   // creates data sets for each centroid 
     }
     initial_placement();
-    while(comp() &amp;gt; .002) {
+    while(comp() &amp; .002) {
       lastpos.clear(); 
-      for(int i=0; i&amp;lt;centpos.size(); i++){
+      for(int i=0; i&amp;centpos.size(); i++){
         double[] value = new double[centpos.get(i).length]; 
-        for(int k=0; k &amp;lt; centpos.get(i).length; k++){
+        for(int k=0; k &amp; centpos.get(i).length; k++){
           value[k] = centpos.get(i)[k];
         }
         lastpos.add(value);
@@ -79,11 +79,11 @@
   private void initial_placement(){
     Random rand = new Random(); 
     //findmax(); 
-    /*for (int i=0; i&amp;lt;centnum; i++){
+    /*for (int i=0; i&amp;centnum; i++){
       double[] initial = {(double)rand.nextInt(max[0]), (double)rand.nextInt(max[1]),(double)rand.nextInt(max[2]),(double)rand.nextInt(max[3])};
       centpos.add(initial);
     */
-    for(int i=0; i&amp;lt;centnum; i++){
+    for(int i=0; i&amp;centnum; i++){
       int r = rand.nextInt(150);
       double[] intial = {Double.parseDouble(data.get(r)[0]),Double.parseDouble(data.get(r)[1]),Double.parseDouble(data.get(r)[2]),Double.parseDouble(data.get(r)[3])};
       centpos.add(intial);
@@ -93,26 +93,26 @@
   }
   
   private void findmax(){
-    for(int i=0; i&amp;lt;data.size(); i++){
+    for(int i=0; i&amp;data.size(); i++){
       String[] items  = data.get(i);
-      for(int x=0; x&amp;lt;4; x++){
+      for(int x=0; x&amp;4; x++){
         int current = (int)Double.parseDouble(items[x]);
-        if(max[x] &amp;lt; current)
+        if(max[x] &amp; current)
           max[x] = (int)current;
       }
     } 
   }
   private void findclose(){
-    for(int i=0; i&amp;lt;centData.size(); i++){
+    for(int i=0; i&amp;centData.size(); i++){
       centData.get(i).clear();
     }
-    for(int i=0; i&amp;lt;data.size(); i++){
+    for(int i=0; i&amp;data.size(); i++){
       double[] items = new double[4];
-      for(int k=0; k&amp;lt;4; k++){
+      for(int k=0; k&amp;4; k++){
         items[k] = Double.parseDouble(data.get(i)[k]);
       }
       double[] c = new double[centnum]; 
-      for(int l=0; l &amp;lt; centnum; l++){
+      for(int l=0; l &amp; centnum; l++){
         c[l]  = euclidean(items, centpos.get(l)); 
       }
       centData.get(getmax(c)).add(data.get(i));   // puts the point to the value of the shortest euclidian distance to that centroid's arrray list in Cent Data
@@ -121,10 +121,10 @@
     
   }
   private void newCentLoc(){
-    for(int i =0; i&amp;lt;centnum; i++){
+    for(int i =0; i&amp;centnum; i++){
       int tot = 0; 
       double[] sum = new double[4]; 
-      for(int k=0; k &amp;lt; centData.get(i).size(); k++){
+      for(int k=0; k &amp; centData.get(i).size(); k++){
         sum[0] = sum[0] + Double.parseDouble(centData.get(i).get(k)[0]);
         sum[1] = sum[1] + Double.parseDouble(centData.get(i).get(k)[1]);
         sum[2] = sum[2] + Double.parseDouble(centData.get(i).get(k)[2]);
@@ -141,8 +141,8 @@
   private int getmax(double[] nums){
     double current = 0;
     int index = 0; 
-    for(int i=0; i&amp;lt; nums.length; i++){
-      if(current &amp;lt; nums[i]){
+    for(int i=0; i&amp; nums.length; i++){
+      if(current &amp; nums[i]){
         index = i; 
         current = nums[i];
       }
@@ -153,26 +153,26 @@
   private double euclidean(double[] a, double[] b){    // euclidean distnace 
     double result =0; 
     double sum=0; 
-    for(int i=0; i&amp;lt;a.length; i++){
+    for(int i=0; i&amp;a.length; i++){
       double sub = a[i] - b[i];   // getting the difference between the two coensiding attributes 
       sum = sum + Math.pow(sub, 2);           // raising it to a power of 2 and adding it to the other sums 
     }
     result  = Math.sqrt(sum);           // taking the square root of the sums
-    //return  result; 
+    //return  resu 
     return 1/(1 + result);            // normalizing the number 
     
   }
   public double computeSSE(){
     double SSE =0 ; 
-    ArrayList&amp;lt;Double&amp;gt; eucDist = new ArrayList&amp;lt;Double&amp;gt;(); 
-    for(int i=0; i&amp;lt; centData.size(); i++){
-      for(int k=0; k &amp;lt; centData.get(i).size(); k++){
+    ArrayList&amp;Double&amp; eucDist = new ArrayList&amp;Double&amp;(); 
+    for(int i=0; i&amp; centData.size(); i++){
+      for(int k=0; k &amp; centData.get(i).size(); k++){
         double a[] = {Double.parseDouble(centData.get(i).get(k)[0]), Double.parseDouble(centData.get(i).get(k)[1]), Double.parseDouble(centData.get(i).get(k)[2]), Double.parseDouble(centData.get(i).get(k)[3])}; 
         eucDist.add(euclidean(a, centpos.get(i)));  
       }
       
     }
-    for(int i=0; i &amp;lt; eucDist.size(); i++){
+    for(int i=0; i &amp; eucDist.size(); i++){
       SSE = SSE + Math.pow(eucDist.get(i), 2);
     }
     
@@ -180,21 +180,21 @@
   }
   private double comp(){
     double result =0;
-    for(int i=0; i &amp;lt; centpos.size(); i++){
+    for(int i=0; i &amp; centpos.size(); i++){
       double dist =0; 
-      for(int k=0; k&amp;lt;centpos.get(i).length; k++){
+      for(int k=0; k&amp;centpos.get(i).length; k++){
         dist = dist + Math.pow(centpos.get(i)[k] - lastpos.get(i)[k], 2);
       }
       result = result + Math.sqrt(dist); 
     }
     
-    return result; 
+    return resu 
   }
   
-  public ArrayList&amp;lt;ArrayList&amp;lt;String[]&amp;gt;&amp;gt; getResults(){
+  public ArrayList&amp;ArrayList&amp;String[]&amp;&amp; getResults(){
     return centData; 
   }
-  public ArrayList&amp;lt;double[]&amp;gt; getPos(){
+  public ArrayList&amp;double[]&amp; getPos(){
     return centpos;
   }
 }

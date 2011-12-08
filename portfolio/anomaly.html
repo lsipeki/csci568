@@ -33,10 +33,15 @@
   <p class="data">This type of approach estimates the relative proximity of an object. It is sometimes easy to define a proximity as a simple measure between objects, but sometime it can be really difficult. In this case an anomaly is proposed as an object that is far away form most of the objects. There are two types of Proximity-based techiniques. The first one is a simple model that gives one relative ceter where all the points lie. The problem with this strategy is when the data is in varying clusters. Another and more commonly used tecnique is the the K-Nearest Neighboor Anomaly detection. This detection like the classification algorithm, measures the distance to the k nearest points. Using the average of them, the distance is then held up to a threashold to determine if the object is an anomaly or not. Nevertheless, this startegy is also very dependend on the user input and can be inaffective against datasets with varying density.</p>
   <br>
   <h2> Density-Based Techniques </h2> 
-  <p class="data"> A Density Based approach estimates the density of the relative area to determine if an object is an anomaly or not.  </p>
+  <p class="data"> A Density Based approach estimates the density of the relative area to determine if an object is an anomaly or not. An Anomaly is by defintion in an area that most other points would not be. Due to this fact, if a point resides in an area of very low density it could, with varying degrees of certanty be considered an anomaly. Deciding on a density level though can be a very hard, if not imposible task for some datasets. When dealing with datasets with varying desity, finding a universal desity can be detrimental to finding the true anomalies of a dataset. Because of this problem the Relative-Density-Based algorithm was established  </p>
+  <br>
+  <h3> Relative Density Based Algorithm </h3> 
+  <p class="RDBA"> To handle datasets with varying desnities the Relative Density Based Algorithm was established. This algorithm words by assiging a relative desnity score to each of the objects. This relative score is the likelyhood that the object is an outlier. Although it works well on values with relative desities, the upper and lower bound on these techniques are still need to be actively calcualated </p>
+  <img src="relative algorithm.png" alt= "rules" HEIGHT="400" WIDTH="700" BORDER="0"/><br><br>
+  <br>
   <br>
   <h2> Clustering-Based Technique </h2>
-  <p class= "dataset"> </p>
+  <p class= "dataset"> Clustering analysis find groups of strongly related objects. One approach is using clustering analysis for anomaly detection is to descard small clusters that are far from the rest of the data. Although this object can be used with any clustering technique, it does require a minimum cluster size that might be really hard to determine. Sometimes all clusters under a certain size are disgraded making the loss of valuable information a big problem. Due to this fact, the more systematic approach is used. After running the modeling algorithm, the model runs through all of the data objects again to asses values of how closety they are realted to a cluster. This can be a valeu depending on the centroid, or a relative density function. Afterwards it is easier to find the anomalies of a dataset. Even though this is a good aproach, it does suffer from certain aspects that regular clustering algorithms suffer from, so that should be taken into consideration when attempting this sort of anomaly detection.  </p>
   <br>
   <br>
   
