@@ -9,7 +9,7 @@ public class Similarity {
 	ArrayList<Integer[]> rate_same = new ArrayList<Integer[]>();
 
 	public Similarity(String file) {
-		readfile("Artist.csv");
+		readfile("genres.csv");
 		compare();
 		find_similar();
 	}
@@ -18,7 +18,7 @@ public class Similarity {
 		for(int i=0; i<normdata.size(); i++){
 			for(int j=0; j<normdata.size(); j++){
 				int counter = 0; 
-				if(j > i){
+				if(i != j){
 					for(int k=0; k<normdata.get(i).size(); k++){
 						for(int l=0; l<normdata.get(j).size(); l++){
 							if(normdata.get(i).get(k)[1].equals( normdata.get(j).get(l)[1])){
@@ -27,7 +27,7 @@ public class Similarity {
 						}
 					}
 				}
-				if(counter > 10){
+				if(counter > 20){
 					Integer[] r = {i, j, counter};  
 					rate_same.add(r); 
 				}
@@ -53,7 +53,7 @@ public class Similarity {
 		double sum = 0; 
 		for(int i=0; i<a.size(); i++){
 			for(int j=0; j<b.size(); j++){
-				if(a.get(i)[1].equals(b.get(j)[1])){
+				if(a.get(i)[1] == b.get(j)[1]){
 					double sub = a.get(i)[2] + b.get(j)[2];
 					sum = sum + Math.pow(sub, 2); 					// raising it to a power of 2 and adding it to the other sums 
 				}

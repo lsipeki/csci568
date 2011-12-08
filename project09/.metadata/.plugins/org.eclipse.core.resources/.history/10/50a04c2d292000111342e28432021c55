@@ -18,7 +18,7 @@ public class Similarity {
 		for(int i=0; i<normdata.size(); i++){
 			for(int j=0; j<normdata.size(); j++){
 				int counter = 0; 
-				if(j > i){
+				if(i != j){
 					for(int k=0; k<normdata.get(i).size(); k++){
 						for(int l=0; l<normdata.get(j).size(); l++){
 							if(normdata.get(i).get(k)[1].equals( normdata.get(j).get(l)[1])){
